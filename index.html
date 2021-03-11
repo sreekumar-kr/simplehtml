@@ -1,0 +1,129 @@
+<!doctype html>
+<html>
+
+<head>
+    <title>Simple HTML EDITOR</title>
+    <link rel="stylesheet" href="https://unpkg.com/@jsweb/material-icons-base64" />
+    <style type="text/css">
+        .tool {
+            cursor: pointer;
+            border: none;
+            margin: 4px;
+        }
+
+        .tool-icon {
+            height: 10px;
+            cursor: pointer;
+            border: none;
+        }
+
+        .tool-icon:hover {
+            background-color: #f1f1f1;
+        }
+
+        #editor {
+            width: 900px;
+            height: 500px;
+            border: 1px #000000 solid;
+            padding: 12px;
+            overflow: scroll;
+            resize: vertical;
+        }
+    </style>
+    <script type="text/javascript">
+        let editor;
+        function format(sCmd, sValue) {
+            document.execCommand(sCmd, false, sValue); editor.focus();
+        }
+        function printDoc() {
+            let oPrntWin = window.open("", "_blank", "width=450,height=470,left=400,top=100,menubar=yes,toolbar=no,location=no,scrollbars=yes");
+            oPrntWin.document.open();
+            oPrntWin.document.write("<!doctype html><html><head><title>Print<\/title><\/head><body onload=\"print();\">" + oDoc.innerHTML + "<\/body><\/html>");
+            oPrntWin.document.close();
+        }
+        // function renderToolbar() {
+        //     let toolBar2 = document.getElementById("toolbar2")
+        // }
+    </script>
+</head>
+
+<body>
+    <h3>SIMPLE WYSIWYG EDITOR</h3>
+    <div>
+        <select onchange="format('formatblock',this[this.selectedIndex].value);this.selectedIndex=0;">
+            <option selected>- formatting -</option>
+            <option value="h1">Title 1 &lt;h1&gt;</option>
+            <option value="h2">Title 2 &lt;h2&gt;</option>
+            <option value="h3">Title 3 &lt;h3&gt;</option>
+            <option value="h4">Title 4 &lt;h4&gt;</option>
+            <option value="h5">Title 5 &lt;h5&gt;</option>
+            <option value="h6">Subtitle &lt;h6&gt;</option>
+            <option value="p">Paragraph &lt;p&gt;</option>
+            <option value="pre">Preformatted &lt;pre&gt;</option>
+        </select>
+        <select onchange="format('fontname',this[this.selectedIndex].value);this.selectedIndex=0;">
+            <option class="heading" selected>- font -</option>
+            <option>Arial</option>
+            <option>Arial Black</option>
+            <option>Courier New</option>
+            <option>Times New Roman</option>
+        </select>
+        <select onchange="format('fontsize',this[this.selectedIndex].value);this.selectedIndex=0;">
+            <option class="heading" selected>- size -</option>
+            <option value="1">Very small</option>
+            <option value="2">A bit small</option>
+            <option value="3">Normal</option>
+            <option value="4">Medium-large</option>
+            <option value="5">Big</option>
+            <option value="6">Very big</option>
+            <option value="7">Maximum</option>
+        </select>
+        <select onchange="format('forecolor',this[this.selectedIndex].value);this.selectedIndex=0;">
+            <option class="heading" selected>- color -</option>
+            <option value="red">Red</option>
+            <option value="blue">Blue</option>
+            <option value="green">Green</option>
+            <option value="black">Black</option>
+        </select>
+        <select onchange="format('backcolor',this[this.selectedIndex].value);this.selectedIndex=0;">
+            <option class="heading" selected>- background -</option>
+            <option value="red">Red</option>
+            <option value="green">Green</option>
+            <option value="black">Black</option>
+        </select>
+    </div>
+    <br />
+    <div>
+        <button class="material-icons tool-icon" onclick="printDoc();">print</button>
+        <button class="material-icons tool-icon" onclick="format('undo');">undo</button>
+        <button class="material-icons tool-icon" onclick="format('redo');">redo</button>
+        <button class="material-icons tool-icon" onclick="format('bold');">format_bold</button>
+        <button class="material-icons tool-icon" onclick="format('italic');">format_italic</button>
+        <button class="material-icons tool-icon" onclick="format('underline');">format_underline</button>
+        <button class="material-icons tool-icon" onclick="format('removeFormat');">format_clear</button>
+
+        <button class="material-icons tool-icon" onclick="format('justifyleft');">format_align_left</button>
+        <button class="material-icons tool-icon" onclick="format('justifycenter');">format_align_center</button>
+        <button class="material-icons tool-icon" onclick="format('justifyright');">format_align_right</button>
+
+
+        <button class="material-icons tool-icon" onclick="format('insertorderedlist');">format_list_numbered</button>
+        <button class="material-icons tool-icon" onclick="format('insertunorderedlist');">format_list_bulleted</button>
+        <button class="material-icons tool-icon" onclick="format('formatblock','blockquote');">format_quote</button>
+
+        <button class="material-icons tool-icon" onclick="format('outdent');">format_indent_decrease</button>
+        <button class="material-icons tool-icon" onclick="format('indent');">format_indent_increase</button>
+
+        <button class="material-icons tool-icon" onclick="format('cut');">content_cut</button>
+        <button class="material-icons tool-icon" onclick="format('copy');">content_copy</button>
+        <button class="material-icons tool-icon" onclick="format('paste');">content_paste</button>
+
+    </div>
+
+    <div id="editor" contenteditable="true">
+        <p>Simple html wysiwyg editor</p>
+    </div>
+
+</body>
+
+</html>
